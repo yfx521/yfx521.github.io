@@ -21,16 +21,17 @@
 
         /* 首页 */
         .hero { 
-            height: 100vh; 
+            min-height: 100vh; /* 确保占满屏幕 */
+            height: auto; /* 适应内容 */
             background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('1.jpg') no-repeat center center; 
             background-size: cover; 
-            background-attachment: fixed; /* 背景图固定，增强高级感 */
+            background-attachment: scroll; /* 移动端不支持 fixed，改用 scroll */
             display: flex; 
             flex-direction: column; 
             justify-content: center; 
             align-items: center; 
             text-align: center; 
-            padding: 0 20px; 
+            padding: 20px; 
             position: relative; 
         }
         .slogan { color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); animation: fadeIn 1.5s ease-in-out; }
@@ -77,12 +78,13 @@
 
             /* 首页 */
             .hero { 
-                height: 100vh; 
+                min-height: 100vh; 
                 background-size: cover; 
-                background-position: center center; 
+                background-position: center 30%; /* 调整背景图位置，突出车头 */
+                padding: 40px 20px; /* 增加顶部和底部内边距 */
             }
-            .slogan h1 { font-size: 2.5rem; }
-            .slogan p { font-size: 1.2rem; }
+            .slogan h1 { font-size: 2rem; }
+            .slogan p { font-size: 1rem; }
 
             /* 社交平台 */
             .social-methods { flex-direction: column; align-items: center; }
