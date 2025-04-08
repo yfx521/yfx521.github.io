@@ -18,7 +18,18 @@
         .menu-toggle { display: none; font-size: 1.5rem; color: white; cursor: pointer; }
 
         /* 首页 */
-        .hero { height: 100vh; background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('1.jpg') no-repeat center center; background-size: cover; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; position: relative; }
+        .hero { 
+            height: 100vh; 
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('1.jpg') no-repeat center center; 
+            background-size: cover; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            text-align: center; 
+            padding: 0 20px; 
+            position: relative; 
+        }
         .slogan { color: white; text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); animation: fadeIn 1.5s ease-in-out; }
         .slogan h1 { font-size: 3.5rem; margin-bottom: 1rem; font-weight: 700; }
         .slogan p { font-size: 1.8rem; font-weight: 300; }
@@ -58,6 +69,11 @@
             .menu-toggle { display: block; }
 
             /* 首页 */
+            .hero { 
+                height: 80vh; /* 调整高度，避免地址栏干扰 */
+                background-size: contain; /* 确保图片完整显示 */
+                background-position: center top; /* 图片从顶部开始显示 */
+            }
             .slogan h1 { font-size: 2rem; }
             .slogan p { font-size: 1.2rem; }
 
@@ -125,7 +141,7 @@
                 <div class="contact-card">
                     <div class="contact-icon">📱</div>
                     <h3 class="contact-title">业务咨询 - 电子升级</h3>
-                    <p class="contact-info">150-93567102-9101</p>
+                    <p class="contact-info">150-9356-7102</p>
                     <div class="wechat-qrcode">
                         <img src="2.jpg" alt="电子升级二维码">
                         <p style="font-size:12px; margin-top:5px;">扫码咨询</p>
