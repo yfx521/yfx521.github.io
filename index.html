@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>杭州M车库 - 宝马专业服务</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚗</text></svg>">
+    <!-- 预加载背景图 -->
+    <link rel="preload" href="1.jpg" as="image">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif; color: #333; line-height: 1.6; overflow-x: hidden; }
@@ -20,8 +22,9 @@
         /* 首页 */
         .hero { 
             height: 100vh; 
-            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('1.jpg') no-repeat center center; 
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('1.jpg') no-repeat center center; 
             background-size: cover; 
+            background-attachment: fixed; /* 背景图固定，增强高级感 */
             display: flex; 
             flex-direction: column; 
             justify-content: center; 
@@ -30,23 +33,27 @@
             padding: 0 20px; 
             position: relative; 
         }
-        .slogan { color: white; text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); animation: fadeIn 1.5s ease-in-out; }
-        .slogan h1 { font-size: 3.5rem; margin-bottom: 1rem; font-weight: 700; }
-        .slogan p { font-size: 1.8rem; font-weight: 300; }
+        .slogan { color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); animation: fadeIn 1.5s ease-in-out; }
+        .slogan h1 { font-size: 4rem; margin-bottom: 1rem; font-weight: 700; letter-spacing: 2px; }
+        .slogan p { font-size: 2rem; font-weight: 300; letter-spacing: 1px; }
 
-        /* 改装案例 */
-        .portfolio-section { padding: 60px 20px; background: #fff; text-align: center; }
-        .portfolio-container { max-width: 1000px; margin: 0 auto; }
-        .portfolio-items { display: flex; justify-content: center; flex-wrap: wrap; gap: 30px; }
-        .portfolio-card { width: 300px; background: white; border-radius: 8px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); overflow: hidden; }
-        .portfolio-card img { width: 100%; height: 200px; object-fit: cover; }
-        .portfolio-card h3 { font-size: 1.3rem; color: #2c3e50; padding: 15px; }
+        /* 社交平台 */
+        .social-section { background-color: #f8f9fa; padding: 60px 20px; text-align: center; }
+        .social-container { max-width: 1000px; margin: 0 auto; position: relative; }
+        .section-title { font-size: 2.2rem; color: #2c3e50; margin-bottom: 40px; position: relative; display: inline-block; }
+        .section-title::after { content: ''; position: absolute; width: 50%; height: 3px; background: #e74c3c; bottom: -10px; left: 25%; }
+        .social-methods { display: flex; justify-content: center; flex-wrap: wrap; gap: 30px; }
+        .social-card { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); width: 280px; transition: transform 0.3s ease; position: relative; text-decoration: none; color: #333; }
+        .social-card:hover { transform: translateY(-10px); }
+        .social-icon { font-size: 2.5rem; margin-bottom: 15px; }
+        .social-icon.douyin { color: #00f; } /* 抖音图标颜色 */
+        .social-icon.xiaohongshu { color: #ff2d55; } /* 小红书图标颜色 */
+        .social-title { font-size: 1.3rem; margin-bottom: 15px; color: #2c3e50; }
+        .social-info { font-size: 1.1rem; color: #7f8c8d; }
 
         /* 联系方式 */
         .contact-section { background-color: #f8f9fa; padding: 60px 20px; text-align: center; }
         .contact-container { max-width: 1000px; margin: 0 auto; position: relative; }
-        .section-title { font-size: 2.2rem; color: #2c3e50; margin-bottom: 40px; position: relative; display: inline-block; }
-        .section-title::after { content: ''; position: absolute; width: 50%; height: 3px; background: #e74c3c; bottom: -10px; left: 25%; }
         .contact-methods { display: flex; justify-content: center; flex-wrap: wrap; gap: 30px; }
         .contact-card { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); width: 280px; transition: transform 0.3s ease; position: relative; }
         .contact-card:hover { transform: translateY(-10px); }
@@ -70,16 +77,16 @@
 
             /* 首页 */
             .hero { 
-                height: 80vh; /* 调整高度，避免地址栏干扰 */
-                background-size: contain; /* 确保图片完整显示 */
-                background-position: center top; /* 图片从顶部开始显示 */
+                height: 100vh; 
+                background-size: cover; 
+                background-position: center center; 
             }
-            .slogan h1 { font-size: 2rem; }
+            .slogan h1 { font-size: 2.5rem; }
             .slogan p { font-size: 1.2rem; }
 
-            /* 改装案例 */
-            .portfolio-card { width: 100%; max-width: 300px; }
-            .portfolio-card img { height: 150px; }
+            /* 社交平台 */
+            .social-methods { flex-direction: column; align-items: center; }
+            .social-card { width: 100%; max-width: 300px; }
 
             /* 联系方式 */
             .contact-methods { flex-direction: column; align-items: center; }
@@ -95,7 +102,7 @@
         <div class="menu-toggle">☰</div>
         <ul class="nav-links">
             <li><a href="#hero">首页</a></li>
-            <li><a href="#portfolio">案例</a></li>
+            <li><a href="#social">社交平台</a></li>
             <li><a href="#contact">联系</a></li>
         </ul>
     </nav>
@@ -108,27 +115,21 @@
         </div>
     </section>
 
-    <!-- 改装案例 -->
-    <section class="portfolio-section" id="portfolio">
-        <div class="portfolio-container">
-            <h2 class="section-title">改装案例</h2>
-            <div class="portfolio-items">
-                <div class="portfolio-card">
-                    <img src="case1.jpg" alt="改装案例1">
-                    <h3>宝马M3 性能升级</h3>
-                </div>
-                <div class="portfolio-card">
-                    <img src="case2.jpg" alt="改装案例2">
-                    <h3>宝马X5 外观升级</h3>
-                </div>
-                <div class="portfolio-card">
-                    <img src="case3.jpg" alt="改装案例3">
-                    <h3>宝马3系 电子升级</h3>
-                </div>
-                <div class="portfolio-card">
-                    <img src="case4.jpg" alt="改装案例4">
-                    <h3>宝马M4 性能提升</h3>
-                </div>
+    <!-- 社交平台 -->
+    <section class="social-section" id="social">
+        <div class="social-container">
+            <h2 class="section-title">关注我们</h2>
+            <div class="social-methods">
+                <a href="https://www.douyin.com/user/self?from_tab_name=main" target="_blank" class="social-card">
+                    <div class="social-icon douyin">🎵</div>
+                    <h3 class="social-title">抖音</h3>
+                    <p class="social-info">查看更多改装视频</p>
+                </a>
+                <a href="https://www.xiaohongshu.com/user/profile/615fa1e40000000002026e2f" target="_blank" class="social-card">
+                    <div class="social-icon xiaohongshu">📷</div>
+                    <h3 class="social-title">小红书</h3>
+                    <p class="social-info">探索改装灵感</p>
+                </a>
             </div>
         </div>
     </section>
@@ -143,25 +144,25 @@
                     <h3 class="contact-title">业务咨询 - 电子升级</h3>
                     <p class="contact-info">150-9356-7102</p>
                     <div class="wechat-qrcode">
-                        <img src="2.jpg" alt="电子升级二维码">
+                        <img src="2.jpg" alt="电子升级二维码" loading="lazy">
                         <p style="font-size:12px; margin-top:5px;">扫码咨询</p>
                     </div>
                 </div>
                 <div class="contact-card">
                     <div class="contact-icon">📱</div>
                     <h3 class="contact-title">业务咨询 - 外观升级</h3>
-                    <p class="contact-info">190-1690-8972</p>
+                    <p class="contact-info">190-1698-8972</p>
                     <div class="wechat-qrcode">
-                        <img src="2.jpg" alt="外观升级二维码">
+                        <img src="2.jpg" alt="外观升级二维码" loading="lazy">
                         <p style="font-size:12px; margin-top:5px;">扫码咨询</p>
                     </div>
                 </div>
                 <div class="contact-card">
                     <div class="contact-icon">📱</div>
                     <h3 class="contact-title">业务咨询 - 性能升级</h3>
-                    <p class="contact-info">190-1698-8972</p>
+                    <p class="contact-info">190-1690-8972</p>
                     <div class="wechat-qrcode">
-                        <img src="2.jpg" alt="性能升级二维码">
+                        <img src="2.jpg" alt="性能升级二维码" loading="lazy">
                         <p style="font-size:12px; margin-top:5px;">扫码咨询</p>
                     </div>
                 </div>
