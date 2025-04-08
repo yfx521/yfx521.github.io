@@ -9,22 +9,21 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif; color: #333; line-height: 1.6; overflow-x: hidden; }
         
-        .navbar { position: fixed; top: 0; width: 100%; background: rgba(0, 0, 0, 0.8); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+        /* 导航栏 */
+        .navbar { position: fixed; top: 0; width: 100%; background: rgba(0, 0, 0, 0.8); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; }
         .logo { color: white; font-size: 1.5rem; }
         .nav-links { list-style: none; display: flex; gap: 20px; }
         .nav-links a { color: white; text-decoration: none; font-size: 1.1rem; }
         .nav-links a:hover { color: #e74c3c; }
+        .menu-toggle { display: none; font-size: 1.5rem; color: white; cursor: pointer; }
 
+        /* 首页 */
         .hero { height: 100vh; background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('1.jpg') no-repeat center center; background-size: cover; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; position: relative; }
         .slogan { color: white; text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); animation: fadeIn 1.5s ease-in-out; }
         .slogan h1 { font-size: 3.5rem; margin-bottom: 1rem; font-weight: 700; }
         .slogan p { font-size: 1.8rem; font-weight: 300; }
-        .hero-contact { margin-top: 20px; color: white; text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); }
-        .hero-contact-text { font-size: 1.2rem; margin: 10px 0; }
-        .hero-qrcode { width: 120px; height: 120px; background: white; padding: 5px; border-radius: 5px; margin: 10px auto; }
-        .cta-button { display: inline-block; margin-top: 20px; padding: 12px 30px; background: #e74c3c; color: white; text-decoration: none; border-radius: 5px; font-size: 1.2rem; transition: background 0.3s ease; }
-        .cta-button:hover { background: #c0392b; }
 
+        /* 改装案例 */
         .portfolio-section { padding: 60px 20px; background: #fff; text-align: center; }
         .portfolio-container { max-width: 1000px; margin: 0 auto; }
         .portfolio-items { display: flex; justify-content: center; flex-wrap: wrap; gap: 30px; }
@@ -32,6 +31,7 @@
         .portfolio-card img { width: 100%; height: 200px; object-fit: cover; }
         .portfolio-card h3 { font-size: 1.3rem; color: #2c3e50; padding: 15px; }
 
+        /* 联系方式 */
         .contact-section { background-color: #f8f9fa; padding: 60px 20px; text-align: center; }
         .contact-container { max-width: 1000px; margin: 0 auto; position: relative; }
         .section-title { font-size: 2.2rem; color: #2c3e50; margin-bottom: 40px; position: relative; display: inline-block; }
@@ -47,18 +47,36 @@
         .wechat-qrcode::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border-width: 10px; border-style: solid; border-color: white transparent transparent transparent; }
         .contact-card:hover .wechat-qrcode { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(-15px); }
 
+        /* 动画 */
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* 响应式设计 */
         @media (max-width: 768px) {
-            .slogan h1 { font-size: 2.5rem; }
-            .slogan p { font-size: 1.3rem; }
+            /* 导航栏 */
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; width: 100%; background: rgba(0, 0, 0, 0.9); padding: 20px; }
+            .nav-links.active { display: flex; }
+            .menu-toggle { display: block; }
+
+            /* 首页 */
+            .slogan h1 { font-size: 2rem; }
+            .slogan p { font-size: 1.2rem; }
+
+            /* 改装案例 */
+            .portfolio-card { width: 100%; max-width: 300px; }
+            .portfolio-card img { height: 150px; }
+
+            /* 联系方式 */
             .contact-methods { flex-direction: column; align-items: center; }
+            .contact-card { width: 100%; max-width: 300px; }
             .wechat-qrcode { width: 150px; height: 150px; }
         }
     </style>
 </head>
 <body>
+    <!-- 导航栏 -->
     <nav class="navbar">
         <div class="logo">杭州M车库</div>
+        <div class="menu-toggle">☰</div>
         <ul class="nav-links">
             <li><a href="#hero">首页</a></li>
             <li><a href="#portfolio">案例</a></li>
@@ -66,19 +84,15 @@
         </ul>
     </nav>
 
+    <!-- 首页 -->
     <section class="hero" id="hero">
         <div class="slogan">
             <h1>杭州M车库</h1>
             <p>让宝马更懂你</p>
-            <div class="hero-contact">
-                <p class="hero-contact-text">立即联系我们：<strong>234-5678-9101</strong></p>
-                <img src="2.jpg" alt="微信二维码" class="hero-qrcode">
-                <p class="hero-contact-text">扫码添加微信</p>
-                <a href="#contact" class="cta-button">更多联系方式</a>
-            </div>
         </div>
     </section>
 
+    <!-- 改装案例 -->
     <section class="portfolio-section" id="portfolio">
         <div class="portfolio-container">
             <h2 class="section-title">改装案例</h2>
@@ -91,11 +105,19 @@
                     <img src="case2.jpg" alt="改装案例2">
                     <h3>宝马X5 外观升级</h3>
                 </div>
+                <div class="portfolio-card">
+                    <img src="case3.jpg" alt="改装案例3">
+                    <h3>宝马3系 电子升级</h3>
+                </div>
+                <div class="portfolio-card">
+                    <img src="case4.jpg" alt="改装案例4">
+                    <h3>宝马M4 性能提升</h3>
+                </div>
             </div>
-            <a href="#contact" class="cta-button">联系我们了解更多</a>
         </div>
     </section>
 
+    <!-- 联系方式 -->
     <section class="contact-section" id="contact">
         <div class="contact-container">
             <h2 class="section-title">联系我们</h2>
@@ -103,7 +125,7 @@
                 <div class="contact-card">
                     <div class="contact-icon">📱</div>
                     <h3 class="contact-title">业务咨询 - 电子升级</h3>
-                    <p class="contact-info">234-5678-9101</p>
+                    <p class="contact-info">150-93567102-9101</p>
                     <div class="wechat-qrcode">
                         <img src="2.jpg" alt="电子升级二维码">
                         <p style="font-size:12px; margin-top:5px;">扫码咨询</p>
@@ -112,7 +134,7 @@
                 <div class="contact-card">
                     <div class="contact-icon">📱</div>
                     <h3 class="contact-title">业务咨询 - 外观升级</h3>
-                    <p class="contact-info">234-5678-9102</p>
+                    <p class="contact-info">190-1690-8972</p>
                     <div class="wechat-qrcode">
                         <img src="2.jpg" alt="外观升级二维码">
                         <p style="font-size:12px; margin-top:5px;">扫码咨询</p>
@@ -121,7 +143,7 @@
                 <div class="contact-card">
                     <div class="contact-icon">📱</div>
                     <h3 class="contact-title">业务咨询 - 性能升级</h3>
-                    <p class="contact-info">234-5678-9103</p>
+                    <p class="contact-info">190-1698-8972</p>
                     <div class="wechat-qrcode">
                         <img src="2.jpg" alt="性能升级二维码">
                         <p style="font-size:12px; margin-top:5px;">扫码咨询</p>
@@ -130,5 +152,14 @@
             </div>
         </div>
     </section>
+
+    <!-- 导航栏汉堡菜单的 JavaScript -->
+    <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
 </body>
 </html>
