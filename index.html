@@ -2,17 +2,37 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 优化 iOS 视口设置 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>杭州M车库 - 宝马专业服务</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚗</text></svg>">
-    <!-- 预加载背景图 -->
+    <!-- 预加载图片 -->
     <link rel="preload" href="1.jpg" as="image">
+    <link rel="preload" href="2.jpg" as="image">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif; color: #333; line-height: 1.6; overflow-x: hidden; }
+        body { 
+            font-family: 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif; 
+            color: #333; 
+            line-height: 1.6; 
+            overflow-x: hidden; 
+            overscroll-behavior: none; /* 防止 iOS Safari 弹性滚动 */
+        }
         
         /* 导航栏 */
-        .navbar { position: fixed; top: 0; width: 100%; background: rgba(0, 0, 0, 0.8); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; }
+        .navbar { 
+            position: fixed; 
+            top: 0; 
+            width: 100%; 
+            background: rgba(0, 0, 0, 0.8); 
+            padding: 15px 20px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            z-index: 1000; 
+        }
         .logo { color: white; font-size: 1.5rem; }
         .nav-links { list-style: none; display: flex; gap: 20px; }
         .nav-links a { color: white; text-decoration: none; font-size: 1.1rem; }
@@ -21,17 +41,18 @@
 
         /* 首页 */
         .hero { 
-            min-height: 100vh; /* 确保占满屏幕 */
-            height: auto; /* 适应内容 */
+            min-height: 100vh; 
+            height: calc(var(--vh, 1vh) * 100); /* 动态视口高度 */
             background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('1.jpg') no-repeat center center; 
             background-size: cover; 
-            background-attachment: scroll; /* 移动端不支持 fixed，改用 scroll */
+            background-attachment: scroll; /* iOS 不支持 fixed */
+            background-position: center 30%; 
             display: flex; 
             flex-direction: column; 
             justify-content: center; 
             align-items: center; 
             text-align: center; 
-            padding: 20px; 
+            padding: 40px 20px; 
             position: relative; 
         }
         .slogan { color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); animation: fadeIn 1.5s ease-in-out; }
@@ -44,11 +65,21 @@
         .section-title { font-size: 2.2rem; color: #2c3e50; margin-bottom: 40px; position: relative; display: inline-block; }
         .section-title::after { content: ''; position: absolute; width: 50%; height: 3px; background: #e74c3c; bottom: -10px; left: 25%; }
         .social-methods { display: flex; justify-content: center; flex-wrap: wrap; gap: 30px; }
-        .social-card { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); width: 280px; transition: transform 0.3s ease; position: relative; text-decoration: none; color: #333; }
+        .social-card { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 8px; 
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); 
+            width: 280px; 
+            transition: transform 0.3s ease; 
+            position: relative; 
+            text-decoration: none; 
+            color: #333; 
+        }
         .social-card:hover { transform: translateY(-10px); }
         .social-icon { font-size: 2.5rem; margin-bottom: 15px; }
-        .social-icon.douyin { color: #00f; } /* 抖音图标颜色 */
-        .social-icon.xiaohongshu { color: #ff2d55; } /* 小红书图标颜色 */
+        .social-icon.douyin { color: #00f; }
+        .social-icon.xiaohongshu { color: #ff2d55; }
         .social-title { font-size: 1.3rem; margin-bottom: 15px; color: #2c3e50; }
         .social-info { font-size: 1.1rem; color: #7f8c8d; }
 
@@ -56,41 +87,85 @@
         .contact-section { background-color: #f8f9fa; padding: 60px 20px; text-align: center; }
         .contact-container { max-width: 1000px; margin: 0 auto; position: relative; }
         .contact-methods { display: flex; justify-content: center; flex-wrap: wrap; gap: 30px; }
-        .contact-card { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); width: 280px; transition: transform 0.3s ease; position: relative; }
-        .contact-card:hover { transform: translateY(-10px); }
+        .contact-card { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 8px; 
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); 
+            width: 280px; 
+            position: relative; 
+            cursor: pointer; /* 提示可交互 */
+        }
         .contact-icon { font-size: 2.5rem; color: #e74c3c; margin-bottom: 15px; }
         .contact-title { font-size: 1.3rem; margin-bottom: 15px; color: #2c3e50; }
         .contact-info { font-size: 1.1rem; color: #7f8c8d; }
-        .wechat-qrcode { position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); width: 180px; height: 180px; background: white; border-radius: 8px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); padding: 10px; opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 10; }
+        .wechat-qrcode { 
+            display: none; /* 初始隐藏 */
+            position: absolute; 
+            bottom: 100%; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            width: 180px; 
+            height: 180px; 
+            background: white; 
+            border-radius: 8px; 
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); 
+            padding: 10px; 
+            z-index: 10; 
+            transition: all 0.3s ease; 
+        }
+        /* PC 端悬停效果 */
+        .contact-card:hover .wechat-qrcode { 
+            display: block; 
+            transform: translateX(-50%) translateY(-15px); 
+        }
+        /* 手机端点击效果 */
+        .mobile .contact-card .wechat-qrcode.active { 
+            display: block; 
+            transform: translateX(-50%) translateY(-15px); 
+        }
         .wechat-qrcode img { width: 100%; height: 100%; object-fit: contain; }
-        .wechat-qrcode::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border-width: 10px; border-style: solid; border-color: white transparent transparent transparent; }
-        .contact-card:hover .wechat-qrcode { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(-15px); }
+        .wechat-qrcode::after { 
+            content: ''; 
+            position: absolute; 
+            top: 100%; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            border-width: 10px; 
+            border-style: solid; 
+            border-color: white transparent transparent transparent; 
+        }
 
         /* 动画 */
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* 响应式设计 */
+        /* 响应式设计（适配 iPhone） */
         @media (max-width: 768px) {
-            /* 导航栏 */
-            .nav-links { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; width: 100%; background: rgba(0, 0, 0, 0.9); padding: 20px; }
+            .nav-links { 
+                display: none; 
+                flex-direction: column; 
+                position: absolute; 
+                top: 60px; 
+                left: 0; 
+                width: 100%; 
+                background: rgba(0, 0, 0, 0.9); 
+                padding: 20px; 
+            }
             .nav-links.active { display: flex; }
             .menu-toggle { display: block; }
 
-            /* 首页 */
             .hero { 
                 min-height: 100vh; 
                 background-size: cover; 
-                background-position: center 30%; /* 调整背景图位置，突出车头 */
-                padding: 40px 20px; /* 增加顶部和底部内边距 */
+                background-position: center 30%; 
+                padding: 40px 20px; 
             }
             .slogan h1 { font-size: 2rem; }
             .slogan p { font-size: 1rem; }
 
-            /* 社交平台 */
             .social-methods { flex-direction: column; align-items: center; }
             .social-card { width: 100%; max-width: 300px; }
 
-            /* 联系方式 */
             .contact-methods { flex-direction: column; align-items: center; }
             .contact-card { width: 100%; max-width: 300px; }
             .wechat-qrcode { width: 150px; height: 150px; }
@@ -146,7 +221,7 @@
                     <h3 class="contact-title">业务咨询 - 电子升级</h3>
                     <p class="contact-info">150-9356-7102</p>
                     <div class="wechat-qrcode">
-                        <img src="2.jpg" alt="电子升级二维码" loading="lazy">
+                        <img src="2.jpg" alt="电子升级二维码">
                         <p style="font-size:12px; margin-top:5px;">扫码咨询</p>
                     </div>
                 </div>
@@ -155,7 +230,7 @@
                     <h3 class="contact-title">业务咨询 - 外观升级</h3>
                     <p class="contact-info">190-1698-8972</p>
                     <div class="wechat-qrcode">
-                        <img src="2.jpg" alt="外观升级二维码" loading="lazy">
+                        <img src="2.jpg" alt="外观升级二维码">
                         <p style="font-size:12px; margin-top:5px;">扫码咨询</p>
                     </div>
                 </div>
@@ -164,7 +239,7 @@
                     <h3 class="contact-title">业务咨询 - 性能升级</h3>
                     <p class="contact-info">190-1690-8972</p>
                     <div class="wechat-qrcode">
-                        <img src="2.jpg" alt="性能升级二维码" loading="lazy">
+                        <img src="2.jpg" alt="性能升级二维码">
                         <p style="font-size:12px; margin-top:5px;">扫码咨询</p>
                     </div>
                 </div>
@@ -172,13 +247,52 @@
         </div>
     </section>
 
-    <!-- 导航栏汉堡菜单的 JavaScript -->
+    <!-- JavaScript -->
     <script>
+        // 动态计算视口高度，适配 iOS
+        function setVh() {
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+        setVh();
+        window.addEventListener('resize', setVh);
+
+        // 导航栏汉堡菜单
         const menuToggle = document.querySelector('.menu-toggle');
         const navLinks = document.querySelector('.nav-links');
         menuToggle.addEventListener('click', () => {
             navLinks.classList.toggle('active');
         });
+
+        // 检测是否为移动端
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        if (isMobile) {
+            document.body.classList.add('mobile'); // 为移动端添加类
+
+            // 手机端：点击触发二维码显示
+            const contactCards = document.querySelectorAll('.contact-card');
+            contactCards.forEach(card => {
+                card.addEventListener('click', (e) => {
+                    e.stopPropagation(); // 防止事件冒泡
+                    const qrCode = card.querySelector('.wechat-qrcode');
+                    // 隐藏其他卡片的二维码
+                    document.querySelectorAll('.wechat-qrcode').forEach(qr => {
+                        if (qr !== qrCode) qr.classList.remove('active');
+                    });
+                    // 切换当前卡片的二维码显示状态
+                    qrCode.classList.toggle('active');
+                });
+            });
+
+            // 点击页面其他区域隐藏二维码
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.contact-card')) {
+                    document.querySelectorAll('.wechat-qrcode').forEach(qr => {
+                        qr.classList.remove('active');
+                    });
+                }
+            });
+        }
     </script>
 </body>
 </html>
