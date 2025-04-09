@@ -44,11 +44,11 @@
         /* 首页 */
         .hero { 
             min-height: 100vh; 
-            height: calc(var(--vh, 1vh) * 100); /* 动态视口高度 */
-            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('1.jpg') no-repeat center center; 
-            background-size: cover; 
+            height: 100vh; /* 直接使用100vh，确保覆盖整个视口 */
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('1.jpg') no-repeat center center; /* 降低渐变层透明度 */
+            background-size: cover; /* 确保背景图覆盖整个区域 */
             background-attachment: scroll; /* iOS 不支持 fixed */
-            background-position: center 30%; 
+            background-position: center center; /* 居中对齐 */
             display: flex; 
             flex-direction: column; 
             justify-content: center; 
@@ -166,8 +166,9 @@
 
             .hero { 
                 min-height: 100vh; 
+                height: 100vh; /* 确保覆盖整个视口 */
                 background-size: cover; 
-                background-position: center 30%; 
+                background-position: center center; 
                 padding: 40px 20px; 
             }
             .slogan h1 { font-size: 2rem; }
