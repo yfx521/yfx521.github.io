@@ -95,45 +95,46 @@
             width: 280px; 
             position: relative; 
             cursor: pointer; /* 提示可交互 */
+            text-align: center; 
         }
         .contact-icon { font-size: 2.5rem; color: #e74c3c; margin-bottom: 15px; }
         .contact-title { font-size: 1.3rem; margin-bottom: 15px; color: #2c3e50; }
-        .contact-info { font-size: 1.1rem; color: #7f8c8d; }
+        .contact-info { font-size: 1.1rem; color: #7f8c8d; margin-bottom: 15px; }
         .wechat-qrcode { 
             display: none; /* 初始隐藏 */
-            position: absolute; 
-            bottom: 100%; 
-            left: 50%; 
-            transform: translateX(-50%); 
-            width: 180px; 
-            height: 180px; 
+            width: 100%; 
             background: white; 
             border-radius: 8px; 
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); 
             padding: 10px; 
-            z-index: 10; 
-            transition: all 0.3s ease; 
+            opacity: 0; /* 用于动画 */
+            transition: opacity 0.3s ease; /* 缓入缓出效果 */
         }
-        /* PC 端悬停效果 */
-        .contact-card:hover .wechat-qrcode { 
+        .wechat-qrcode.active { 
             display: block; 
-            transform: translateX(-50%) translateY(-15px); 
+            opacity: 1; 
         }
-        /* 手机端点击效果 */
-        .mobile .contact-card .wechat-qrcode.active { 
+        .wechat-qrcode img { 
+            width: 150px; 
+            height: 150px; 
+            object-fit: contain; 
+            margin: 0 auto; 
             display: block; 
-            transform: translateX(-50%) translateY(-15px); 
         }
-        .wechat-qrcode img { width: 100%; height: 100%; object-fit: contain; }
-        .wechat-qrcode::after { 
-            content: ''; 
+        .wechat-qrcode .close-btn { 
             position: absolute; 
-            top: 100%; 
-            left: 50%; 
-            transform: translateX(-50%); 
-            border-width: 10px; 
-            border-style: solid; 
-            border-color: white transparent transparent transparent; 
+            top: 10px; 
+            right: 10px; 
+            width: 20px; 
+            height: 20px; 
+            background: #e74c3c; 
+            color: white; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            cursor: pointer; 
+            font-size: 14px; 
+            line-height: 1; 
         }
 
         /* 动画 */
@@ -167,8 +168,8 @@
             .social-card { width: 100%; max-width: 300px; }
 
             .contact-methods { flex-direction: column; align-items: center; }
-            .contact-card { width: 100%; max-width: 300px; }
-            .wechat-qrcode { width: 150px; height: 150px; }
+            .contact-card { width: 100%; max-width: 300px; padding-bottom: 10px; }
+            .wechat-qrcode img { width: 120px; height: 120px; }
         }
     </style>
 </head>
@@ -223,6 +224,7 @@
                     <div class="wechat-qrcode">
                         <img src="2.jpg" alt="电子升级二维码">
                         <p style="font-size:12px; margin-top:5px;">扫码咨询</p>
+                        <span class="close-btn">✘</span>
                     </div>
                 </div>
                 <div class="contact-card">
@@ -232,6 +234,7 @@
                     <div class="wechat-qrcode">
                         <img src="2.jpg" alt="外观升级二维码">
                         <p style="font-size:12px; margin-top:5px;">扫码咨询</p>
+                        <span class="close-btn">✘</span>
                     </div>
                 </div>
                 <div class="contact-card">
@@ -241,6 +244,7 @@
                     <div class="wechat-qrcode">
                         <img src="2.jpg" alt="性能升级二维码">
                         <p style="font-size:12px; margin-top:5px;">扫码咨询</p>
+                        <span class="close-btn">✘</span>
                     </div>
                 </div>
             </div>
@@ -272,25 +276,48 @@
             // 手机端：点击触发二维码显示
             const contactCards = document.querySelectorAll('.contact-card');
             contactCards.forEach(card => {
+                const qrCode = card.querySelector('.wechat-qrcode');
+                const closeBtn = qrCode.querySelector('.close-btn');
+
+                // 点击卡片显示二维码
                 card.addEventListener('click', (e) => {
-                    e.stopPropagation(); // 防止事件冒泡
-                    const qrCode = card.querySelector('.wechat-qrcode');
-                    // 隐藏其他卡片的二维码
+                    e.stopPropagation();
+                    // 隐藏其他二维码
                     document.querySelectorAll('.wechat-qrcode').forEach(qr => {
                         if (qr !== qrCode) qr.classList.remove('active');
                     });
-                    // 切换当前卡片的二维码显示状态
-                    qrCode.classList.toggle('active');
+                    // 切换当前二维码显示状态
+                    if (!qrCode.classList.contains('active')) {
+                        qrCode.classList.add('active');
+                    }
+                });
+
+                // 点击关闭按钮隐藏二维码
+                closeBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    qrCode.classList.remove('active');
                 });
             });
 
-            // 点击页面其他区域隐藏二维码
+            // 点击页面其他区域隐藏所有二维码
             document.addEventListener('click', (e) => {
                 if (!e.target.closest('.contact-card')) {
                     document.querySelectorAll('.wechat-qrcode').forEach(qr => {
                         qr.classList.remove('active');
                     });
                 }
+            });
+        } else {
+            // PC端：悬停显示二维码
+            const contactCards = document.querySelectorAll('.contact-card');
+            contactCards.forEach(card => {
+                const qrCode = card.querySelector('.wechat-qrcode');
+                card.addEventListener('mouseenter', () => {
+                    qrCode.classList.add('active');
+                });
+                card.addEventListener('mouseleave', () => {
+                    qrCode.classList.remove('active');
+                });
             });
         }
     </script>
