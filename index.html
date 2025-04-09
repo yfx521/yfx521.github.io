@@ -94,24 +94,25 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); 
             width: 280px; 
             position: relative; 
-            cursor: pointer; /* 提示可交互 */
+            cursor: pointer; 
             text-align: center; 
         }
         .contact-icon { font-size: 2.5rem; color: #e74c3c; margin-bottom: 15px; }
         .contact-title { font-size: 1.3rem; margin-bottom: 15px; color: #2c3e50; }
         .contact-info { font-size: 1.1rem; color: #7f8c8d; margin-bottom: 15px; }
         .wechat-qrcode { 
-            display: none; /* 初始隐藏 */
             width: 100%; 
             background: white; 
             border-radius: 8px; 
             padding: 10px; 
-            opacity: 0; /* 用于动画 */
-            transition: opacity 0.3s ease; /* 缓入缓出效果 */
+            max-height: 0; /* 初始高度为0 */
+            opacity: 0; /* 初始透明 */
+            overflow: hidden; /* 隐藏超出内容 */
+            transition: max-height 0.3s ease, opacity 0.3s ease; /* 动画效果 */
         }
         .wechat-qrcode.active { 
-            display: block; 
-            opacity: 1; 
+            max-height: 200px; /* 展开时的高度，需大于二维码实际高度 */
+            opacity: 1; /* 完全显示 */
         }
         .wechat-qrcode img { 
             width: 150px; 
@@ -170,6 +171,7 @@
             .contact-methods { flex-direction: column; align-items: center; }
             .contact-card { width: 100%; max-width: 300px; padding-bottom: 10px; }
             .wechat-qrcode img { width: 120px; height: 120px; }
+            .wechat-qrcode.active { max-height: 170px; } /* 移动端调整高度 */
         }
     </style>
 </head>
