@@ -275,13 +275,13 @@
         if (isMobile) {
             document.body.classList.add('mobile'); // 为移动端添加类
 
-            // 手机端：点击触发二维码显示
+            // 手机端：点击触发二维码显示并调整滚动位置
             const contactCards = document.querySelectorAll('.contact-card');
             contactCards.forEach(card => {
                 const qrCode = card.querySelector('.wechat-qrcode');
                 const closeBtn = qrCode.querySelector('.close-btn');
 
-                // 点击卡片显示二维码
+                // 点击卡片显示二维码并滚动到可视区域
                 card.addEventListener('click', (e) => {
                     e.stopPropagation();
                     // 隐藏其他二维码
@@ -291,6 +291,19 @@
                     // 切换当前二维码显示状态
                     if (!qrCode.classList.contains('active')) {
                         qrCode.classList.add('active');
+                        // 等待动画完成后再滚动（300ms与transition时间一致）
+                        setTimeout(() => {
+                            const cardRect = card.getBoundingClientRect();
+                            const qrCodeRect = qrCode.getBoundingClientRect();
+                            const windowHeight = window.innerHeight;
+                            // 如果二维码底部超出视口，则滚动到合适位置
+                            if (cardRect.bottom + qrCodeRect.height > windowHeight) {
+                                window.scrollTo({
+                                    top: window.scrollY + (cardRect.bottom + qrCodeRect.height - windowHeight + 20), // 额外20px缓冲
+                                    behavior: 'smooth'
+                                });
+                            }
+                        }, 300); // 与transition时间匹配
                     }
                 });
 
