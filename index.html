@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- 禁用iOS Safari自动识别电话号码 -->
+    <meta name="format-detection" content="telephone=no">
     <title>杭州M车库 - 宝马专业服务</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚗</text></svg>">
     <!-- 预加载图片 -->
@@ -99,7 +101,13 @@
         }
         .contact-icon { font-size: 2.5rem; color: #e74c3c; margin-bottom: 15px; }
         .contact-title { font-size: 1.3rem; margin-bottom: 15px; color: #2c3e50; }
-        .contact-info { font-size: 1.1rem; color: #7f8c8d; margin-bottom: 15px; }
+        .contact-info { 
+            font-size: 1.1rem; 
+            color: #7f8c8d; 
+            margin-bottom: 15px; 
+            text-decoration: none; /* 移除可能的下划线 */
+            pointer-events: none; /* 禁用点击事件 */
+        }
         .wechat-qrcode { 
             width: 100%; 
             background: white; 
