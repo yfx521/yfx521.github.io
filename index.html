@@ -11,7 +11,8 @@
     <title>杭州M车库 - 宝马专业服务</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚗</text></svg>">
     <!-- 预加载图片 -->
-    <link rel="preload" href="1.jpg" as="image">
+    <link rel="preload" href="1-mobile.webp" as="image" media="(max-width: 768px)">
+    <link rel="preload" href="1-desktop.webp" as="image" media="(min-width: 769px)">
     <link rel="preload" href="2.jpg" as="image">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -44,11 +45,12 @@
         /* 首页 */
         .hero { 
             min-height: 100vh; 
-            height: 100vh; /* 直接使用100vh，确保覆盖整个视口 */
-            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('1.jpg') no-repeat center center; /* 降低渐变层透明度 */
-            background-size: cover; /* 确保背景图覆盖整个区域 */
+            height: 100vh; /* 确保覆盖整个视口 */
+            background: url('1-mobile.webp') no-repeat center center; /* 移动端默认图片 */
+            background-size: cover; /* 填满屏幕 */
             background-attachment: scroll; /* iOS 不支持 fixed */
             background-position: center center; /* 居中对齐 */
+            background-color: #1a1a1a; /* 加载时的占位背景色 */
             display: flex; 
             flex-direction: column; 
             justify-content: center; 
@@ -167,7 +169,7 @@
             .hero { 
                 min-height: 100vh; 
                 height: 100vh; /* 确保覆盖整个视口 */
-                background-size: cover; 
+                background-size: cover; /* 填满屏幕 */
                 background-position: center center; 
                 padding: 40px 20px; 
             }
@@ -181,6 +183,14 @@
             .contact-card { width: 100%; max-width: 300px; padding-bottom: 10px; }
             .wechat-qrcode img { width: 120px; height: 120px; }
             .wechat-qrcode.active { max-height: 170px; } /* 移动端调整高度 */
+        }
+
+        /* PC端使用更高分辨率的图片 */
+        @media (min-width: 769px) {
+            .hero {
+                background: url('1-desktop.webp') no-repeat center center;
+                background-size: cover; /* PC端填满屏幕 */
+            }
         }
     </style>
 </head>
