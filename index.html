@@ -191,6 +191,43 @@
                 background: url('1-desktop.webp') no-repeat center center; /* WebP 优先 */
                 background-size: cover;
             }
+            /* 修改 PC 端二维码显示效果 */
+            .contact-card:hover .wechat-qrcode { /* 添加悬停效果 */
+                opacity: 1; 
+                visibility: visible; 
+                transform: translateX(-50%) translateY(-15px); 
+            }
+            .wechat-qrcode { 
+                position: absolute; 
+                bottom: 100%; 
+                left: 50%; 
+                transform: translateX(-50%); 
+                width: 180px; 
+                max-height: none; /* 移除 max-height，PC 端使用淡入淡出 */
+                opacity: 0; 
+                visibility: hidden; 
+                transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease; /* 淡入淡出效果 */
+                z-index: 10; 
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); 
+            }
+            .wechat-qrcode.active { 
+                opacity: 1; 
+                visibility: visible; 
+                transform: translateX(-50%) translateY(-15px); 
+            }
+            .wechat-qrcode::after { 
+                content: ''; 
+                position: absolute; 
+                top: 100%; 
+                left: 50%; 
+                transform: translateX(-50%); 
+                border-width: 10px; 
+                border-style: solid; 
+                border-color: white transparent transparent transparent; 
+            }
+            .wechat-qrcode .close-btn { 
+                display: none; /* PC 端隐藏关闭按钮 */
+            }
         }
     </style>
 </head>
@@ -355,9 +392,9 @@
                         const qrCodeRect = qrCode.getBoundingClientRect();
                         const windowHeight = window.innerHeight;
                         // 如果二维码底部超出视口，则滚动到合适位置
-                        if (cardRect.bottom + qrCodeRect.height > windowHeight) {
+                        if (cardRect.top - qrCodeRect.height < 0) { // 检查二维码是否超出顶部
                             window.scrollTo({
-                                top: window.scrollY + (cardRect.bottom + qrCodeRect.height - windowHeight + 20), // 额外20px缓冲
+                                top: window.scrollY + (cardRect.top - qrCodeRect.height - 20), // 额外20px缓冲
                                 behavior: 'smooth'
                             });
                         }
