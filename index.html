@@ -323,13 +323,28 @@
                 }
             });
         } else {
-            // PC端：悬停显示二维码
+            // PC端：悬停显示二维码并调整滚动位置
             const contactCards = document.querySelectorAll('.contact-card');
             contactCards.forEach(card => {
                 const qrCode = card.querySelector('.wechat-qrcode');
+
                 card.addEventListener('mouseenter', () => {
                     qrCode.classList.add('active');
+                    // 等待动画完成后再滚动（300ms与transition时间一致）
+                    setTimeout(() => {
+                        const cardRect = card.getBoundingClientRect();
+                        const qrCodeRect = qrCode.getBoundingClientRect();
+                        const windowHeight = window.innerHeight;
+                        // 如果二维码底部超出视口，则滚动到合适位置
+                        if (cardRect.bottom + qrCodeRect.height > windowHeight) {
+                            window.scrollTo({
+                                top: window.scrollY + (cardRect.bottom + qrCodeRect.height - windowHeight + 20), // 额外20px缓冲
+                                behavior: 'smooth'
+                            });
+                        }
+                    }, 300); // 与transition时间匹配
                 });
+
                 card.addEventListener('mouseleave', () => {
                     qrCode.classList.remove('active');
                 });
