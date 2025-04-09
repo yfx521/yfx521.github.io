@@ -45,11 +45,10 @@
         /* 首页 */
         .hero { 
             min-height: 100vh; 
-            height: 100vh; /* 确保覆盖整个视口 */
-            background: url('1-mobile.webp') no-repeat center center; /* 移动端默认图片 */
-            background-size: cover; /* 填满屏幕 */
-            background-attachment: scroll; /* iOS 不支持 fixed */
-            background-position: center center; /* 居中对齐 */
+            height: 100vh;
+            background: url('1-mobile.jpg') no-repeat center center; /* JPEG 回退 */
+            background: url('1-mobile.webp') no-repeat center center; /* WebP 优先 */
+            background-size: cover;
             background-color: #1a1a1a; /* 加载时的占位背景色 */
             display: flex; 
             flex-direction: column; 
@@ -168,8 +167,8 @@
 
             .hero { 
                 min-height: 100vh; 
-                height: 100vh; /* 确保覆盖整个视口 */
-                background-size: cover; /* 填满屏幕 */
+                height: 100vh;
+                background-size: cover;
                 background-position: center center; 
                 padding: 40px 20px; 
             }
@@ -188,8 +187,9 @@
         /* PC端使用更高分辨率的图片 */
         @media (min-width: 769px) {
             .hero {
-                background: url('1-desktop.webp') no-repeat center center;
-                background-size: cover; /* PC端填满屏幕 */
+                background: url('1-desktop.jpg') no-repeat center center; /* JPEG 回退 */
+                background: url('1-desktop.webp') no-repeat center center; /* WebP 优先 */
+                background-size: cover;
             }
         }
     </style>
