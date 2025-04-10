@@ -14,6 +14,8 @@
     <link rel="preload" href="1-mobile.webp" as="image" media="(max-width: 768px)">
     <link rel="preload" href="1-desktop.webp" as="image" media="(min-width: 769px)">
     <link rel="preload" href="2.jpg" as="image">
+    <!-- 预加载 logo 图片 -->
+    <link rel="preload" href="logo.png" as="image">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
@@ -36,7 +38,11 @@
             align-items: center; 
             z-index: 1000; 
         }
-        .logo { color: white; font-size: 1.5rem; }
+        .logo img { /* 修改：为 logo 图片添加样式 */
+            height: 30px; /* 调整 logo 高度，适配导航栏 */
+            width: auto; /* 宽度自适应，保持比例 */
+            display: block; /* 确保图片不带多余间距 */
+        }
         .nav-links { list-style: none; display: flex; gap: 20px; }
         .nav-links a { color: white; text-decoration: none; font-size: 1.1rem; }
         .nav-links a:hover { color: #e74c3c; }
@@ -234,7 +240,10 @@
 <body>
     <!-- 导航栏 -->
     <nav class="navbar">
-        <div class="logo">杭州M车库</div>
+        <div class="logo">
+            <!-- 修改：将文本替换为 logo 图片 -->
+            <img src="logo.png" alt="杭州M车库 Logo">
+        </div>
         <div class="menu-toggle">☰</div>
         <ul class="nav-links">
             <li><a href="#hero">首页</a></li>
