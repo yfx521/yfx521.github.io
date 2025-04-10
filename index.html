@@ -33,14 +33,14 @@
             width: 100%; 
             background: rgba(0, 0, 0, 0.8); 
             padding: 0 20px; /* 移除上下内边距，仅保留左右内边距 */
-            height: 100px; /* 导航栏高度 */
+            height: 80px; /* 明确设置导航栏高度 */
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
             z-index: 1000; 
         }
-        .logo img { /* 修改：设置固定 logo 高度，最大化 */
-            height: 100px; /* 等于导航栏高度，最大化 */
+        .logo img { /* 修改：使 logo 高度自适应导航栏 */
+            height: 80%; /* logo 高度为导航栏高度的 80% */
             max-width: 300px; /* 限制最大宽度 */
             width: auto; /* 保持比例 */
             display: block; /* 确保图片不带多余间距 */
@@ -161,13 +161,13 @@
         /* 响应式设计（适配 iPhone） */
         @media (max-width: 768px) {
             .navbar {
-                height: 80px; /* 移动端导航栏高度 */
+                height: 60px; /* 移动端减小导航栏高度 */
             }
             .nav-links { 
                 display: none; 
                 flex-direction: column; 
                 position: absolute; 
-                top: 80px; /* 与导航栏高度匹配 */
+                top: 60px; /* 与导航栏高度匹配 */
                 left: 0; 
                 width: 100%; 
                 background: rgba(0, 0, 0, 0.9); 
@@ -194,9 +194,8 @@
             .wechat-qrcode img { width: 120px; height: 120px; }
             .wechat-qrcode.active { max-height: 170px; } /* 移动端调整高度 */
 
-            /* 移动端调整 logo 高度和最大宽度 */
+            /* 移动端调整 logo 最大宽度 */
             .logo img {
-                height: 80px; /* 等于导航栏高度，最大化 */
                 max-width: 200px; /* 移动端减小最大宽度 */
             }
         }
