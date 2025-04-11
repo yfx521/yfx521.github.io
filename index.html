@@ -32,17 +32,18 @@
             top: 0; 
             width: 100%; 
             background: rgba(0, 0, 0, 0.8); 
-            padding: 15px 20px; 
+            padding: 10px 20px; /* 减少上下内边距给logo更多空间 */
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
             z-index: 1000; 
         }
-        .logo img { /* 修改：调整 logo 图片尺寸 */
-            height: 60px; /* PC 端增加高度，使 logo 更显眼 */
-            max-width: 300px; /* 增加最大宽度，适应 logo 比例 */
-            width: auto; /* 保持比例 */
-            display: block; /* 确保图片不带多余间距 */
+        .logo img { 
+            height: 80px; /* PC端增加到80px高度 */
+            max-width: 350px; /* 增加最大宽度 */
+            width: auto; 
+            display: block; 
+            transition: all 0.3s ease; /* 添加平滑过渡效果 */
         }
         .nav-links { list-style: none; display: flex; gap: 20px; }
         .nav-links a { color: white; text-decoration: none; font-size: 1.1rem; }
@@ -163,7 +164,7 @@
                 display: none; 
                 flex-direction: column; 
                 position: absolute; 
-                top: 60px; 
+                top: 80px; /* 调整为与logo高度匹配 */
                 left: 0; 
                 width: 100%; 
                 background: rgba(0, 0, 0, 0.9); 
@@ -192,8 +193,8 @@
 
             /* 移动端调整 logo 尺寸 */
             .logo img {
-                height: 40px; /* 移动端减小高度，适配小屏幕 */
-                max-width: 200px; /* 移动端减小最大宽度 */
+                height: 60px; /* 从40px增加到60px */
+                max-width: 250px; /* 适当增加最大宽度 */
             }
         }
 
@@ -240,6 +241,13 @@
             }
             .wechat-qrcode .close-btn { 
                 display: none; /* PC 端隐藏关闭按钮 */
+            }
+        }
+
+        /* 超大屏幕logo更大 */
+        @media (min-width: 1200px) {
+            .logo img {
+                height: 90px; /* 超大屏幕再增大 */
             }
         }
     </style>
